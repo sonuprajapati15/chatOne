@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "16631073009",
+    "project_id": "chatone-1ad15",
+    "storage_bucket": "chatone-1ad15.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16631073009:android:d199857e41bef34fe38150",
+        "android_client_info": {
+          "package_name": "com.example.chatone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16631073009-n5b6ccnst3fod04t9kh3su14tke6otl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_zfS__-AVr5VjArVnwLFwAQmIscP_eNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "16631073009-n5b6ccnst3fod04t9kh3su14tke6otl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

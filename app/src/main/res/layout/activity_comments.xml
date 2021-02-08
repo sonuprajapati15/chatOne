@@ -1,0 +1,63 @@
+
+<android.support.design.widget.CoordinatorLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/cord"
+    android:background="#fff"
+    android:layout_height="match_parent" >
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recv"
+        android:layout_marginBottom="60dp"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+        <LinearLayout
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffff"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/box"
+                android:layout_width="270dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_weight=".8"
+                android:minHeight="42dp"
+                android:maxHeight="120dp"
+                android:background="@drawable/shape"
+                android:backgroundTint="#efefef"
+                android:maxLength="200"
+                android:maxLines="4"
+                android:paddingLeft="15sp"
+                android:paddingRight="15sp"
+                android:textColor="#000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reply"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="10dp"
+                android:textColor="#0079bf"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"  />
+
+        </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

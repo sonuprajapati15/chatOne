@@ -1,0 +1,64 @@
+
+<LinearLayout
+     android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cord"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#fff"
+            android:src="@drawable/ic_videocam_black_24dp"
+             android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:id="@+id/imgbtn"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_add_a_photo_black_24dp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shape5"
+        android:backgroundTint="#e1e1e1"
+        android:minHeight="50dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:hint="enter text to ask"
+        android:textColor="#0a0a0a"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:background="@drawable/shape5"
+        android:backgroundTint="#0d7be9"
+        android:text="Post"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_marginBottom="15dp"/>
+
+</LinearLayout>
+

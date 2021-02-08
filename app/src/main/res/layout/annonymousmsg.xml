@@ -1,0 +1,117 @@
+
+<android.support.design.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#efefef"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <LinearLayout
+        android:id="@+id/send"
+          android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:background="@drawable/shape4"
+            android:orientation="vertical"
+            android:backgroundTint="#fff"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="end"
+             android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                 android:id="@+id/smessage"
+                android:text="helo my bro where r u right now its sunday "
+                android:textColor="#000"
+                android:minWidth="80dp"
+                android:maxWidth="270dp"
+                android:paddingLeft="15sp"
+                android:textSize="16sp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="9dp"
+                android:paddingRight="5sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/stime"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp"
+                android:textSize="12sp"
+                android:textColor="@color/base"
+                android:text="9.15 am"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/recive"
+        android:visibility="gone"
+          android:orientation="vertical"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:background="@drawable/shape3"
+            android:orientation="vertical"
+            android:backgroundTint="#202020"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="start"
+            android:elevation="4dp"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/rmessage"
+                android:text="helo my bro where r u right now its sunday "
+                android:textColor="#fff"
+                android:minWidth="80dp"
+                android:maxWidth="270dp"
+                android:paddingLeft="15sp"
+                android:textSize="16sp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="9dp"
+                android:paddingRight="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/rtime"
+                android:layout_gravity="end"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/colorAccent1"
+                android:text="9.15 am"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="25dp"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,34 @@
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.sonu.hello.chat.Annonymous">
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab"
+        android:elevation="25dp"
+        android:background="#212121"
+        android:layout_width="match_parent"
+        app:tabTextColor="#f2f2f2"
+        app:tabSelectedTextColor="#fff"
+        android:layout_height="48dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recive"
+        android:visibility="gone"
+        android:layout_marginTop="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/send"
+        android:visibility="gone"
+        android:layout_marginTop="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</android.support.design.widget.CoordinatorLayout>

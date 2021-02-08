@@ -1,0 +1,117 @@
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        app:cardMaxElevation="4dp"
+        app:cardUseCompatPadding="true"
+        android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="2dp"
+        android:backgroundTint="#fff"
+          >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="94dp"
+                android:layout_height="94dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@color/cardview_dark_background"  />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/online"
+                    android:src="#09e201"
+                    android:layout_width="15dp"
+                    android:visibility="gone"
+                    android:layout_height="15dp"
+                    android:layout_alignBottom="@+id/image"
+                    android:layout_alignEnd="@+id/image" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:maxLength="60"
+                android:maxLines="1"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_gravity="center_horizontal"
+                android:text="sonu prajapati"
+                android:textAlignment="center"
+                android:layout_marginTop="15dp"
+                android:textColor="#252525"
+                android:textSize="17sp"
+                android:textStyle="bold"
+               />
+
+
+         <LinearLayout
+             android:orientation="horizontal"
+             android:layout_gravity="center_horizontal"
+             android:layout_marginTop="3dp"
+             android:layout_marginEnd="10dp"
+              android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_location_on_black_24dp"  />
+
+            <TextView
+                android:id="@+id/city"
+                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:paddingLeft="1dp"
+                android:paddingRight="5dp"
+                android:text="sonu prajapati"
+                android:layout_gravity="bottom"
+                android:textAlignment="center"
+                android:textColor="#0180e9"
+                android:textSize="15sp" />
+
+             </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:maxLength="30"
+                android:maxLines="1"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="sonu prajapati"
+                android:textAlignment="center"
+                android:textColor="#02c91c"
+                android:textSize="11sp"  />
+
+
+        </LinearLayout>>
+
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

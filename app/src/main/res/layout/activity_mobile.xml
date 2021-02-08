@@ -1,0 +1,194 @@
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+     android:id="@+id/cord"
+    android:layout_width="match_parent"
+    android:background="@drawable/signup"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/down"
+        android:layout_marginTop="8dp"
+        android:layout_alignTop="@+id/option"
+        android:layout_toStartOf="@+id/ll" />
+
+    <LinearLayout
+        android:id="@+id/option"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="9dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="26sp"
+            android:text="1/2"
+            />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="register with \n       Email"
+            android:textColor="#fff"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/pic"
+        android:layout_width="150dp"
+        app:civ_border_color="#fff"
+        app:civ_border_width="2dp"
+        app:civ_border_overlay="true"
+        android:src="@mipmap/user"
+        android:layout_height="150dp"
+        android:layout_marginTop="52dp"
+        android:layout_below="@+id/option"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:elevation="80dp"
+        android:src="@drawable/ic_photo_camera_black_24dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id="@+id/img"
+        android:layout_alignBottom="@+id/pic"
+        android:layout_alignEnd="@+id/upload" />
+
+    <TextView
+        android:id="@+id/upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="upload a profile pic  (optional)"
+        android:textColor="#fff"
+        android:textSize="12sp"
+        android:layout_marginTop="19dp"
+        android:layout_below="@+id/pic"
+        android:layout_alignStart="@+id/pic" />
+
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+         android:orientation="vertical"
+        android:layout_marginTop="60dp"
+        android:layout_below="@+id/upload"
+        android:layout_centerHorizontal="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/mobile"
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="18dp"
+            android:backgroundTint="#fff"
+            android:hint="10 digit phone no."
+            android:inputType="number"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:paddingBottom="16dp"
+            android:textAlignment="center"
+            android:textColor="#00e751"
+            android:textColorHint="#d2d2d2"
+            android:textSize="17sp" />
+
+        <Button
+            android:id="@+id/submit1"
+            android:layout_width="160dp"
+            android:layout_height="42dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/shape"
+            android:backgroundTint="#fff"
+            android:elevation="100dp"
+            android:text="Request Otp"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="15sp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll1"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/upload"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/otp"
+            android:layout_marginTop="18dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ffffff"
+            android:hint="enter otp"
+            android:inputType="number"
+            android:textSize="19sp"
+            android:maxLength="6"
+            android:maxLines="1"
+            android:textColorHint="#e2e2e2"
+            android:backgroundTint="#fff"
+            android:layout_width="270dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:id="@+id/resend"
+            android:text="resnd otp"
+            android:textColor="#00d2f2"
+            android:textSize="14sp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="3dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/submit2"
+            android:elevation="100dp"
+            android:textAlignment="center"
+            android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:textColor="#000"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            android:text="continue"
+            android:background="@drawable/shape"
+            android:backgroundTint="#fff"
+            android:layout_width="160dp"
+            android:layout_height="42dp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+</RelativeLayout>

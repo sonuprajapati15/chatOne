@@ -1,0 +1,276 @@
+
+<RelativeLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:background="#fff"
+    android:id="@+id/cord" >
+
+    <ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:android="http://schemas.android.com/apk/res/android" >
+
+     <LinearLayout
+        android:orientation="vertical"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_below="@+id/date"
+         android:layout_alignParentStart="true">
+
+          <RelativeLayout
+              android:layout_width="125dp"
+              android:layout_marginTop="20dp"
+              android:layout_gravity="center_horizontal"
+              android:layout_height="125dp">
+
+               <de.hdodenhof.circleimageview.CircleImageView
+                   android:id="@+id/imageView3"
+                   android:layout_width="120dp"
+                   android:layout_height="120dp"
+                   android:src="@drawable/ic_videocam_black_24dp"
+                   app:civ_border_color="@color/base"
+                   app:civ_border_overlay="false"
+                   app:civ_border_width="1dp" />
+
+               <ImageView
+                   android:id="@+id/imageView4"
+                   android:layout_width="28dp"
+                   android:layout_height="28dp"
+                   android:elevation="60dp"
+                   android:src="@drawable/ic_camera_alt_black_24dp"
+                   android:layout_alignBottom="@+id/imageView3"
+                   android:layout_alignEnd="@+id/imageView3" />
+
+          </RelativeLayout>
+
+       <com.google.android.material.textfield.TextInputLayout
+           android:layout_marginTop="20dp"
+           android:layout_width="wrap_content"
+           android:layout_gravity="center_horizontal"
+           android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name"
+                android:hint="* Name"
+                android:textColor="#000"
+                android:backgroundTint="#000"
+                android:inputType="text"
+                android:textAlignment="center"
+                android:paddingLeft="10sp"
+                android:textSize="15sp"
+                android:layout_width="280dp"
+                android:layout_height="45dp"  />
+
+       </com.google.android.material.textfield.TextInputLayout>
+
+
+          <TextView
+              android:id="@+id/gender"
+              android:text="Gender"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:textColor="#292929"
+              android:layout_marginStart="40dp"
+              android:layout_marginTop="20dp"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+
+          <RadioGroup
+              android:id="@+id/rgp"
+              android:layout_marginTop="5dp"
+              android:layout_gravity="center_horizontal"
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+               <RadioButton
+                   android:id="@+id/male"
+                   android:text="Male"
+                   android:textColor="#404040"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+
+               <RadioButton
+                   android:id="@+id/female"
+                   android:text="Fe-Male"
+                   android:textColor="#404040"
+                   android:layout_marginLeft="10dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+
+               <RadioButton
+                   android:id="@+id/other"
+                   android:text="Other"
+                   android:textColor="#404040"
+                   android:layout_marginLeft="10dp"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content" />
+
+          </RadioGroup>
+
+
+         <TextView
+             android:text="Status"
+             android:textSize="16sp"
+             android:textStyle="bold"
+             android:textColor="#292929"
+             android:layout_marginStart="40dp"
+             android:layout_marginTop="18dp"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" />
+
+         <RadioGroup
+             android:id="@+id/rgp2"
+             android:layout_marginTop="8dp"
+             android:layout_gravity="center_horizontal"
+             android:orientation="horizontal"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+             <RadioButton
+                 android:id="@+id/single"
+                 android:text="Single"
+                 android:textSize="13sp"
+                 android:textColor="#404040"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+
+             <RadioButton
+                 android:id="@+id/married"
+                 android:text="Relationship"
+                 android:textSize="13sp"
+                 android:textColor="#404040"
+                 android:layout_marginLeft="10dp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+
+             <RadioButton
+                 android:id="@+id/complicate"
+                 android:text="Complicated"
+                 android:textSize="13sp"
+                 android:textColor="#404040"
+                 android:layout_marginLeft="10dp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" />
+
+         </RadioGroup>
+
+
+
+
+
+          <LinearLayout
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_marginTop="12dp"
+              android:id="@+id/calander"
+              android:layout_gravity="center_horizontal"
+              android:layout_height="wrap_content">
+
+          <com.google.android.material.textfield.TextInputLayout
+               android:layout_width="wrap_content"
+              android:layout_marginTop="5dp"
+               android:layout_height="wrap_content">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/dob"
+                  android:layout_width="260dp"
+                  android:layout_height="45dp"
+                  android:backgroundTint="#000"
+                  android:hint="Date Of Birth"
+                  android:inputType="text"
+                  android:paddingLeft="10sp"
+                  android:textAlignment="center"
+                  android:textColor="#000"
+                  android:textSize="12sp" />
+
+          </com.google.android.material.textfield.TextInputLayout>
+
+               <ImageView
+                   android:id="@+id/cal"
+                   android:src="@drawable/ic_today_black_24dp"
+                   android:layout_gravity="center_vertical"
+                   android:layout_width="24dp"
+                   android:layout_height="24dp" />
+
+          </LinearLayout>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_marginTop="10dp"
+              android:layout_width="wrap_content"
+              android:layout_gravity="center_horizontal"
+              android:layout_height="wrap_content">
+
+              <com.google.android.material.textfield.TextInputEditText
+                  android:id="@+id/city"
+                  android:layout_width="280dp"
+                  android:layout_height="45dp"
+                  android:backgroundTint="#000"
+                  android:hint="Hometown"
+                  android:inputType="text"
+                  android:paddingLeft="10sp"
+                  android:textAlignment="center"
+                  android:textColor="#000"
+                  android:textSize="15sp" />
+
+          </com.google.android.material.textfield.TextInputLayout>
+
+         <com.google.android.material.textfield.TextInputLayout
+             android:layout_marginTop="15dp"
+             android:layout_width="wrap_content"
+             android:layout_gravity="center_horizontal"
+             android:layout_height="wrap_content">
+
+             <com.google.android.material.textfield.TextInputEditText
+                 android:id="@+id/desc"
+                 android:layout_width="280dp"
+                 android:layout_height="45dp"
+                 android:backgroundTint="#000"
+                 android:hint="description"
+                 android:text="Hey i m using chatOne!!!!"
+                 android:inputType="text"
+                 android:paddingLeft="10sp"
+                 android:textAlignment="center"
+                 android:textColor="#000"
+                 android:textSize="15sp" />
+
+         </com.google.android.material.textfield.TextInputLayout>
+
+
+         <Button
+             android:id="@+id/submit"
+             android:background="@drawable/shape5"
+             android:layout_width="180dp"
+             android:backgroundTint="@color/base"
+             android:text="Submit"
+             android:elevation="40dp"
+             android:textColor="#fff"
+             android:textSize="15sp"
+             android:layout_marginBottom="20dp"
+             android:layout_gravity="center_horizontal"
+             android:layout_marginTop="25dp"
+             android:layout_height="45dp" />
+
+
+     </LinearLayout>
+</ScrollView>
+
+    <DatePicker
+        android:id="@+id/date"
+         android:layout_marginRight="40dp"
+        android:background="#fff"
+        android:visibility="gone"
+        android:backgroundTint="#efefef"
+        android:layout_marginLeft="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="67dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

@@ -1,0 +1,68 @@
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#333333"
+    android:orientation="vertical" >
+
+  <com.google.android.youtube.player.YouTubePlayerView
+      android:id="@+id/player"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+
+  <TextView
+      android:id="@+id/channel"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="10dp"
+      android:layout_marginStart="10dp"
+      android:layout_marginTop="10dp"
+      android:maxLines="4"
+      android:text="Title"
+      android:textColor="#ffffff"
+      android:textSize="14sp"
+      android:textStyle="bold"
+      android:typeface="normal" />
+
+  <TextView
+      android:id="@+id/title"
+      android:text="Title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:typeface="normal"
+      android:textSize="17sp"
+      android:textColor="#ffffff"
+      android:textStyle="bold"
+      android:layout_marginTop="10dp"
+      android:layout_marginStart="10dp"
+      android:layout_marginEnd="10dp"/>
+
+
+
+  <TextView
+      android:id="@+id/description"
+      android:text="Description"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="#fafafa"
+      android:layout_marginStart="10dp"
+      android:layout_marginTop="5dp"
+      android:layout_marginEnd="10dp" />
+
+
+  <TextView
+      android:id="@+id/time"
+      android:text="Video ID : NA"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="12dp"
+      android:textColor="#046bf2"
+      android:layout_marginStart="10dp"
+      android:layout_marginEnd="10dp"
+      android:textSize="13sp" />
+
+
+
+</LinearLayout>

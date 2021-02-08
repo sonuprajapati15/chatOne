@@ -1,0 +1,70 @@
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@drawable/loginback"
+    android:layout_height="match_parent" >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img"
+        android:src="#fff"
+        app:civ_border_overlay="true"
+        app:civ_border_width="6dp"
+        app:civ_border_color="#f4c519"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="70dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView6" />
+
+    <TextView
+        android:textColor="#14ffa1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to ChatOne"
+        android:id="@+id/textView6"
+        android:layout_marginTop="27dp"
+        android:layout_below="@+id/img"
+        android:layout_alignStart="@+id/textView2" />
+
+    <TextView
+        android:textColor="#fff"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:text="Start \n your\n Adventure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="44dp"
+        android:layout_below="@+id/textView6"
+        android:layout_alignParentStart="true" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/email"
+        android:background="@drawable/shape"
+        android:backgroundTint="#fff"
+        android:text="Next"
+        android:elevation="25dp"
+        android:textColor="#000"
+        android:textSize="16dp"
+        android:layout_width="230dp"
+        android:layout_height="45dp"
+        android:visibility="visible"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp" />
+
+
+</RelativeLayout>
