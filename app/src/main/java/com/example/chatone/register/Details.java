@@ -128,11 +128,6 @@ public class Details extends AppCompatActivity {
             }
         });
 
-        if (getIntent().getStringExtra("ID").equals("2")) {
-            gend.setVisibility(View.GONE);
-            grp.setVisibility(View.GONE);
-        }
-
         ref = FirebaseDatabase.getInstance().getReference().child("USERS");
         user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -199,8 +194,6 @@ public class Details extends AppCompatActivity {
 
                 if (status.length() < 3)
                     Snackbar.make(findViewById(R.id.cord), "select Status", Snackbar.LENGTH_LONG).show();
-                else if (dob.getText().toString().length() < 6)
-                    dob.setError("Select birth date");
                 else if (desc.getText().toString().length() < 6)
                     desc.setError("Select birth date");
                 else {
@@ -310,35 +303,12 @@ public class Details extends AppCompatActivity {
 
         StorageReference storage = FirebaseStorage.getInstance().getReference().child(FirebaseConstants.FIREBASE_USERS_PATH);
         if (uri != null) {
-            String image = user.getUid() + "." + getExt(uri);
-            UploadTask upload = storage.child(image).putBytes(bytes);
+            String imageAdd = user.getUid() + "." + getExt(uri);
+            UploadTask upload = storage.child(imageAdd).putBytes(bytes);
             upload.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    HashMap<String, Object> hm = new HashMap<>();
-                    hm.put(FirebaseConstants.NAME, name.getText().toString().trim());
-                    hm.put(FirebaseConstants.GENDER, gender);
-                    hm.put(FirebaseConstants.STATUS, status);
-                    hm.put(FirebaseConstants.ONLINE, false);
-                    hm.put(FirebaseConstants.DOB, dob.getText().toString().trim());
-                    hm.put(FirebaseConstants.THUMB_IAMGE, image);
-                    hm.put(FirebaseConstants.HOMETOWN, hometown);
-                    hm.put(FirebaseConstants.ID, user.getUid());
-                    hm.put(FirebaseConstants.DESC, desc.getText().toString().trim());
-
-                    ref.child(user.getUid()).updateChildren(hm)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    SharedPreferences sp = getSharedPreferences("chatOne", Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = sp.edit();
-                                    editor.putBoolean("login", true);
-                                    editor.commit();
-                                    dialog.dismiss();
-                                    startActivity(new Intent(getApplicationContext(), Home.class));
-                                    finish();
-                                }
-                            });
+                    updateUserData(imageAdd);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -348,39 +318,37 @@ public class Details extends AppCompatActivity {
             });
 
         } else {
-            HashMap<String, Object> hm = new HashMap<>();
-            hm.put("NAME", name.getText().toString().trim());
-            hm.put("GENDER", gender);
-            hm.put("STATUS", status);
-            hm.put("DOB", dob.getText().toString().trim());
-            hm.put("THUMB", prof);
-            hm.put("ONLINE", "false");
-            hm.put("HOMETOWN", hometown);
-            hm.put("HEYID", user.getUid());
-            hm.put("DESCRIPTION", desc.getText().toString().trim());
-
-
-            ref.child(user.getUid()).updateChildren(hm)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            SharedPreferences sp = getSharedPreferences("hey", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sp.edit();
-                            editor.putBoolean("login", true);
-                            editor.commit();
-                            dialog.dismiss();
-                            startActivity(new Intent(getApplicationContext(), Home.class));
-                            finish();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Snackbar.make(findViewById(R.id.cord), e.getMessage(), Snackbar.LENGTH_LONG).show();
-                        }
-                    });
-
+            updateUserData(null);
         }
+    }
+
+    private void updateUserData(String imageAdd) {
+        HashMap<String, Object> hm = new HashMap<>();
+        hm.put(FirebaseConstants.NAME, name.getText().toString().trim());
+        hm.put(FirebaseConstants.GENDER, gender);
+        hm.put(FirebaseConstants.STATUS, status);
+        hm.put(FirebaseConstants.ONLINE, false);
+        hm.put(FirebaseConstants.DOB, dob.getText().toString().trim());
+        if(imageAdd != null) {
+            hm.put(FirebaseConstants.THUMB_IAMGE, imageAdd);
+        }
+        hm.put(FirebaseConstants.HOMETOWN, hometown);
+        hm.put(FirebaseConstants.ID, user.getUid());
+        hm.put(FirebaseConstants.DESC, desc.getText().toString().trim());
+
+        ref.child(user.getUid()).updateChildren(hm)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        SharedPreferences sp = getSharedPreferences("chatOne", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putBoolean("login", true);
+                        editor.commit();
+                        dialog.dismiss();
+                        startActivity(new Intent(getApplicationContext(), Home.class));
+                        finish();
+                    }
+                });
     }
 
     private void call() {

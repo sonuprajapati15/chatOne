@@ -22,7 +22,7 @@ import com.example.chatone.videofragments.Movies;
 import com.example.chatone.videofragments.Music;
 import com.example.chatone.videofragments.Newsfr;
 import com.example.chatone.videofragments.Status;
-import com.example.chatone.videofragments.TSP;
+import com.example.chatone.videofragments.CurrentAffairs;
 import com.example.chatone.videofragments.TVF;
 import com.example.chatone.videofragments.Trending;
 import com.google.android.material.tabs.TabLayout;
@@ -57,9 +57,9 @@ public class Video extends Fragment {
         tab.addTab(tab.newTab().setText("Music"));
         tab.addTab(tab.newTab().setText("Comedy"));
         tab.addTab(tab.newTab().setText("Kapil Sharma"));
-        tab.addTab(tab.newTab().setText("TVF"));
-        tab.addTab(tab.newTab().setText("TSP"));
-        tab.addTab(tab.newTab().setText("GAMEPLAY"));
+        tab.addTab(tab.newTab().setText("TVF and Tsp"));
+        tab.addTab(tab.newTab().setText("Current Affairs"));
+        tab.addTab(tab.newTab().setText("Gameplay"));
         tab.addTab(tab.newTab().setText("Status"));
 
 
@@ -111,7 +111,7 @@ public class Video extends Fragment {
 
                         break;
                     case 7:
-                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.video, new TSP()).addToBackStack("tsp").commit();
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.video, new CurrentAffairs()).addToBackStack("current affairs").commit();
 
                         break;
                     case 8:

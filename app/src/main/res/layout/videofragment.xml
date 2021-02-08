@@ -11,7 +11,7 @@
     android:layout_height="match_parent">
 
 
-     <android.support.v7.widget.RecyclerView
+     <androidx.recyclerview.widget.RecyclerView
          android:id="@+id/recv"
          android:layout_marginTop="7dp"
          android:layout_marginStart="1dp"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-     <android.support.v7.widget.RecyclerView
+     <androidx.recyclerview.widget.RecyclerView
          android:id="@+id/recv1"
          android:layout_marginTop="5dp"
          android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
          android:id="@+id/recv2"
          android:layout_marginTop="5dp"
          android:layout_width="match_parent"
@@ -73,7 +73,7 @@
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
              android:id="@+id/recv3"
              android:layout_marginTop="5dp"
               android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
 
     </ScrollView>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recv4"
         android:visibility="gone"
         android:layout_marginTop="5dp"

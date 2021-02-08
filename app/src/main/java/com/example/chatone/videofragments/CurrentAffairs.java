@@ -34,7 +34,7 @@ import java.util.ArrayList;
  * Created by sonu on 03-01-2019.
  */
 
-public class TSP extends Fragment {
+public class CurrentAffairs extends Fragment {
 
     RecyclerView recv, recv2, recv3, recv4, recv5;
     private ArrayList<VideoData> al1 = new ArrayList<>(), al2 = new ArrayList<>();
@@ -72,7 +72,7 @@ public class TSP extends Fragment {
     }
 
     private void call1() {
-        String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=tsp and aib episodes&maxResults=30&key=AIzaSyB7ug8gYDb0mbrd7pob8m7sUdAZESeahcI";
+        String url = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=current affairs and aib episodes&maxResults=30&key=AIzaSyB7ug8gYDb0mbrd7pob8m7sUdAZESeahcI";
 
         RequestQueue req = Volley.newRequestQueue(getActivity());
         StringRequest strq = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {

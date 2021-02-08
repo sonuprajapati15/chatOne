@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.chatone.News.Downloads;
 import com.example.chatone.R;
+import com.example.chatone.constants.FirebaseConstants;
 import com.example.chatone.geo.Geolocation;
 import com.example.chatone.home.fragments.ChatList;
 import com.example.chatone.home.fragments.News;
@@ -101,18 +102,13 @@ public class Home extends AppCompatActivity {
         profile = (CircleImageView) findViewById(R.id.imageView3);
         location = (FloatingActionButton) findViewById(R.id.location);
 
-
+        loadingInitialData();
         location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Geolocation.class));
             }
         });
-
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference().child("USERS");
-
 
         search1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,9 +153,8 @@ public class Home extends AppCompatActivity {
                                 builder.setNegativeButton("YES", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-
                                         FirebaseAuth.getInstance().signOut();
-                                        SharedPreferences sp = getSharedPreferences("hey", Context.MODE_PRIVATE);
+                                        SharedPreferences sp = getSharedPreferences("chatOne", Context.MODE_PRIVATE);
                                         SharedPreferences.Editor editor = sp.edit();
                                         editor.putBoolean("login", false);
                                         editor.commit();
@@ -169,8 +164,6 @@ public class Home extends AppCompatActivity {
                                 });
                                 builder.create().show();
                                 return true;
-
-
                             default:
                                 return false;
                         }
@@ -187,12 +180,16 @@ public class Home extends AppCompatActivity {
 
     }
 
+    private void loadingInitialData() {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference().child(FirebaseConstants.FIREBASE_USERS_PATH);
+    }
+
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        reference.child(user.getUid()).child("ONLINE").setValue("true")
+        reference.child(user.getUid()).child(FirebaseConstants.ONLINE).setValue(true)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -202,12 +199,13 @@ public class Home extends AppCompatActivity {
         reference.child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot data) {
-                if (data.hasChild("NAME")) {
-                    String hey = data.child("NAME").getValue().toString();
+                if (data.hasChild(FirebaseConstants.NAME)) {
+                    String hey = data.child(FirebaseConstants.NAME).getValue().toString();
                 }
 
-                if (data.hasChild("THUMB"))
-                    Picasso.with(Home.this).load(data.child("THUMB").getValue().toString()).into(profile);
+                if (data.hasChild(FirebaseConstants.THUMB_IAMGE))
+                    Picasso.with(Home.this).load(data.child(FirebaseConstants.THUMB_IAMGE)
+                            .getValue().toString()).into(profile);
 
             }
 
@@ -221,7 +219,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        reference.child(user.getUid()).child("ONLINE").setValue("false")
+        reference.child(user.getUid()).child(FirebaseConstants.ONLINE).setValue(false)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -234,15 +232,13 @@ public class Home extends AppCompatActivity {
     public void onBackPressed() {
 
         if (fm.getBackStackEntryCount() > 0) {
-
             fm.popBackStack();
-
         }
 
         if (fm.getBackStackEntryCount() == 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
             builder.setCancelable(false);
-            builder.setTitle("Warrning");
+            builder.setTitle("Warning");
             builder.setMessage("Are You Sure !!!" + "\n" + "you want to Exit");
             builder.setNegativeButton("No", null);
             builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {

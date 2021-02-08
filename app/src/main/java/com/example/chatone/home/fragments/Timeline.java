@@ -49,7 +49,6 @@ public class Timeline extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.timeline,null);
-
         cv=(CardView)v.findViewById(R.id.cv);
         recv=(RecyclerView)v.findViewById(R.id.recv);
         tt=(ImageView)v.findViewById(R.id.tt);
