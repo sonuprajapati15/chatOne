@@ -216,6 +216,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="10dp"
+                    android:textSize="14dp"
                     android:text="Sign-Up with Twitter"
                     android:textColor="#000" />
             </LinearLayout>
@@ -250,6 +251,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="10dp"
+                    android:textSize="14dp"
                     android:text="Sign-Up with Mobile"
                     android:textColor="#000" />
             </LinearLayout>
@@ -283,6 +285,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="10dp"
+                    android:textSize="14dp"
                     android:text="Sign - Up with Email"
                     android:textColor="#000" />
 
@@ -321,10 +324,5 @@
     </LinearLayout>
 
 
-    <com.twitter.sdk.android.core.identity.TwitterLoginButton
-        android:id="@+id/tweetbtn"
-        android:layout_width="0dp"
-        android:visibility="gone"
-        android:layout_height="0dp" />
 
 </RelativeLayout>

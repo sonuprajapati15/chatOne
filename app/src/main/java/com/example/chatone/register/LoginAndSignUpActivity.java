@@ -28,6 +28,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,20 +37,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.auth.TwitterAuthProvider;
+import com.google.firebase.auth.OAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.twitter.sdk.android.core.Callback;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.Twitter;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-
 import java.util.HashMap;
 import java.util.regex.Pattern;
-
-import retrofit2.Response;
 
 public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -62,14 +54,11 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
     private FirebaseAuth mAuth;
     private CardView google, tweet, mobilebtn, emailbtn;
     private DatabaseReference dbReference;
-    TwitterLoginButton twitter;
-    private static int c = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_signup);
-        Twitter.initialize(getApplicationContext());
         down = (TextView) findViewById(R.id.down);
         google = (CardView) findViewById(R.id.google);
         tweet = (CardView) findViewById(R.id.tweet);
@@ -82,7 +71,6 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
         emailBox = (TextInputEditText) findViewById(R.id.email);
         passBox = (TextInputEditText) findViewById(R.id.pass);
         ll2 = (LinearLayout) findViewById(R.id.ll2);
-        twitter = (TwitterLoginButton) findViewById(R.id.tweetbtn);
 
 
         loadStartupData();
@@ -116,22 +104,9 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
                 tweet.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        c = 1;
-                        twitter.performClick();
+                       handleTwitterSession();
                     }
                 });
-            }
-        });
-
-        twitter.setCallback(new Callback<TwitterSession>() {
-            @Override
-            public void success(Result<TwitterSession> result) {
-                handleTwitterSession(result.data, result.response);
-            }
-
-            @Override
-            public void failure(TwitterException exception) {
-                Snackbar.make(findViewById(R.id.cord), exception.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -243,40 +218,64 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
 
     }
 
-    private void handleTwitterSession(final TwitterSession session, Response response) {
-        dialog.setMessage("Checking validation");
-        dialog.show();
-        AuthCredential credential = TwitterAuthProvider.getCredential(
-                session.getAuthToken().token,
-                session.getAuthToken().secret);
+    private void handleTwitterSession() {
+       dialog.show();
+        OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
+        Task<AuthResult> pendingResultTask = mAuth.getPendingAuthResult();
+        if (pendingResultTask != null) {
+            pendingResultTask
+                    .addOnSuccessListener(
+                            new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    gotoDetailPageForTwitter(mAuth, authResult);
+                                }
+                            })
+                    .addOnFailureListener(
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    dialog.dismiss();
+                                }
+                            });
+        } else {
+            twitterSignInFlow(provider);
+        }
 
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    }
+
+    private void twitterSignInFlow(OAuthProvider.Builder provider) {
+        mAuth.startActivityForSignInWithProvider(/* activity= */ this, provider.build())
+                .addOnSuccessListener(
+                        new OnSuccessListener<AuthResult>() {
+                            @Override
+                            public void onSuccess(AuthResult authResult) {
+                                gotoDetailPageForTwitter(mAuth, authResult);
+                            }
+                        })
+                .addOnFailureListener(
+                        new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                dialog.dismiss();
+                                Snackbar.make(findViewById(R.id.cord), e.getMessage(), Snackbar.LENGTH_LONG).show();
+                            }
+                        });
+    }
+
+    private void gotoDetailPageForTwitter(FirebaseAuth mAuth, AuthResult authResult) {
+        HashMap<String, Object> hm = new HashMap<String, Object>();
+        hm.put(FirebaseConstants.NAME, authResult.getAdditionalUserInfo().getUsername());
+        hm.put(FirebaseConstants.ID, mAuth.getCurrentUser().getUid());
+        dbReference.child(mAuth.getCurrentUser().getUid()).updateChildren(hm)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        HashMap<String, Object> hm = new HashMap<String, Object>();
-                        hm.put(FirebaseConstants.NAME, session.getUserName());
-                        hm.put(FirebaseConstants.TWITTER_ID, session.getUserId());
-                        hm.put(FirebaseConstants.ID, mAuth.getCurrentUser().getUid());
-
-                        dbReference.child(mAuth.getCurrentUser().getUid()).updateChildren(hm)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        dialog.dismiss();
-                                        Intent i = new Intent(getApplicationContext(), Details.class);
-                                        i.putExtra("ID", "1");
-                                        startActivity(i);
-                                        finish();
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        dialog.dismiss();
-                                        Snackbar.make(findViewById(R.id.cord), e.getMessage(), Snackbar.LENGTH_LONG).show();
-                                    }
-                                });
+                    public void onComplete(@NonNull Task<Void> task) {
+                        dialog.dismiss();
+                        Intent i = new Intent(getApplicationContext(), Details.class);
+                        i.putExtra("ID", "1");
+                        startActivity(i);
+                        finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -286,7 +285,6 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
                         Snackbar.make(findViewById(R.id.cord), e.getMessage(), Snackbar.LENGTH_LONG).show();
                     }
                 });
-
     }
 
     private void loginWithEmailAndPassword(final String emailId, String password) {
