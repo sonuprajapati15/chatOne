@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="30dp"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
 
@@ -42,16 +42,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="130dp">
+            android:layout_marginTop="220dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email"
                 android:layout_width="260dp"
                 android:layout_height="50dp"
-                android:backgroundTint="#fff"
                 android:hint="username"
                 android:inputType="textEmailAddress"
                 android:maxLength="50"
+                android:backgroundTint="#fff"
                 android:maxLines="1"
                 android:textColor="#fff"
                 android:textColorHint="#fff"
@@ -72,10 +72,10 @@
                     android:id="@+id/pass"
                     android:layout_width="260dp"
                     android:layout_height="50dp"
-                    android:backgroundTint="#fff"
                     android:hint="password"
                     android:inputType="textPassword"
                     android:maxLength="50"
+                    android:backgroundTint="#fff"
                     android:maxLines="1"
                     android:textColor="#fff"
                     android:textColorHint="#fff"
@@ -90,7 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="10dp"
             android:text="Forgot password"
             android:textColor="#fff" />
 
@@ -109,7 +109,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="45dp"
             android:orientation="horizontal">
 
             <TextView
@@ -145,7 +145,7 @@
         android:background="@drawable/loginback2"
         android:elevation="25dp"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
 
         <pl.droidsonroids.gif.GifImageView
@@ -158,11 +158,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/google"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="100dp"
-            app:cardCornerRadius="20dp"
+            android:layout_marginTop="80dp"
+            app:cardCornerRadius="30dp"
             app:cardElevation="5dp">
 
             <LinearLayout
@@ -171,64 +171,31 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="40dp"
                     android:src="@drawable/google" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="18dp"
                     android:layout_marginEnd="10dp"
-                    android:text="Sign-up with Google"
-                    android:textColor="#000"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/facebook"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="5dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
-                    android:src="@drawable/facebook" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="10dp"
-                    android:text="Sign-up with Facebook"
-                    android:textColor="#000"
-                    android:textStyle="bold" />
+                    android:textSize="14dp"
+                    android:text="Sign-Up with Google"
+                    android:textColor="#000" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/tweet"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="30dp"
             app:cardElevation="5dp">
 
             <LinearLayout
@@ -237,21 +204,20 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="40dp"
                     android:src="@drawable/tweet" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="18dp"
                     android:layout_marginEnd="10dp"
-                    android:text="Sign-up with Twitter"
-                    android:textColor="#000"
-                    android:textStyle="bold" />
+                    android:text="Sign-Up with Twitter"
+                    android:textColor="#000" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -259,11 +225,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/mobilesign"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="30dp"
             app:cardElevation="5dp">
 
             <LinearLayout
@@ -272,32 +238,31 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="40dp"
                     android:src="@drawable/timeline" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="18dp"
                     android:layout_marginEnd="10dp"
-                    android:text="Sign-up with Mobile"
-                    android:textColor="#000"
-                    android:textStyle="bold" />
+                    android:text="Sign-Up with Mobile"
+                    android:textColor="#000" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
 
         <androidx.cardview.widget.CardView
             android:id="@+id/emailsign"
-            android:layout_width="250dp"
-            android:layout_height="40dp"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="30dp"
             app:cardElevation="5dp">
 
             <LinearLayout
@@ -306,21 +271,20 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="40dp"
                     android:src="@drawable/emai1" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="20dp"
+                    android:layout_marginStart="18dp"
                     android:layout_marginEnd="10dp"
-                    android:text="Sign-up with email"
-                    android:textColor="#000"
-                    android:textStyle="bold" />
+                    android:text="Sign - Up with Email"
+                    android:textColor="#000" />
 
             </LinearLayout>
 
@@ -332,7 +296,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="25dp">
+            android:layout_marginTop="45dp">
 
             <TextView
                 android:id="@+id/ne"
@@ -355,5 +319,12 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
+    <com.twitter.sdk.android.core.identity.TwitterLoginButton
+        android:id="@+id/tweetbtn"
+        android:layout_width="0dp"
+        android:visibility="gone"
+        android:layout_height="0dp" />
 
 </RelativeLayout>

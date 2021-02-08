@@ -11,7 +11,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,11 +36,20 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.TwitterAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
+
+import retrofit2.Response;
 
 public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
@@ -52,20 +60,18 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
     private ProgressDialog dialog;
     private LinearLayout ll2;
     private FirebaseAuth mAuth;
-    private CardView google, facebook, tweet, mobilebtn, emailbtn;
-    private DatabaseReference mrefrence;
+    private CardView google, tweet, mobilebtn, emailbtn;
+    private DatabaseReference dbReference;
+    TwitterLoginButton twitter;
     private static int c = 0;
-    private GoogleSignInClient mGoogleSignInClient;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_signup);
-
+        Twitter.initialize(getApplicationContext());
         down = (TextView) findViewById(R.id.down);
         google = (CardView) findViewById(R.id.google);
-        facebook = (CardView) findViewById(R.id.facebook);
         tweet = (CardView) findViewById(R.id.tweet);
         reset = (TextView) findViewById(R.id.reset);
         welcome = (TextView) findViewById(R.id.welcome);
@@ -76,6 +82,8 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
         emailBox = (TextInputEditText) findViewById(R.id.email);
         passBox = (TextInputEditText) findViewById(R.id.pass);
         ll2 = (LinearLayout) findViewById(R.id.ll2);
+        twitter = (TwitterLoginButton) findViewById(R.id.tweetbtn);
+
 
         loadStartupData();
 
@@ -102,10 +110,28 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
             }
         });
 
-        facebook.setOnClickListener(new View.OnClickListener() {
+        tweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                askFacebookLogin();
+                tweet.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        c = 1;
+                        twitter.performClick();
+                    }
+                });
+            }
+        });
+
+        twitter.setCallback(new Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                handleTwitterSession(result.data, result.response);
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Snackbar.make(findViewById(R.id.cord), exception.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -154,10 +180,6 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
         });
     }
 
-    private void askFacebookLogin() {
-
-    }
-
     private GoogleSignInClient getGoogleClient() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -176,10 +198,11 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 HashMap<String, Object> hm = new HashMap<String, Object>();
                                 hm.put(FirebaseConstants.NAME, acct.getDisplayName());
-                                hm.put(FirebaseConstants.THUMB_IAMGE, acct.getPhotoUrl());
+                                hm.put(FirebaseConstants.THUMB_IAMGE, acct.getPhotoUrl().toString());
                                 hm.put(FirebaseConstants.EMAIL, acct.getEmail());
+                                hm.put(FirebaseConstants.ID, mAuth.getCurrentUser().getUid());
                                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                                mrefrence.child(currentUser.getUid()).updateChildren(hm)
+                                dbReference.child(currentUser.getUid()).updateChildren(hm)
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
@@ -220,6 +243,52 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
 
     }
 
+    private void handleTwitterSession(final TwitterSession session, Response response) {
+        dialog.setMessage("Checking validation");
+        dialog.show();
+        AuthCredential credential = TwitterAuthProvider.getCredential(
+                session.getAuthToken().token,
+                session.getAuthToken().secret);
+
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        HashMap<String, Object> hm = new HashMap<String, Object>();
+                        hm.put(FirebaseConstants.NAME, session.getUserName());
+                        hm.put(FirebaseConstants.TWITTER_ID, session.getUserId());
+                        hm.put(FirebaseConstants.ID, mAuth.getCurrentUser().getUid());
+
+                        dbReference.child(mAuth.getCurrentUser().getUid()).updateChildren(hm)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        dialog.dismiss();
+                                        Intent i = new Intent(getApplicationContext(), Details.class);
+                                        i.putExtra("ID", "1");
+                                        startActivity(i);
+                                        finish();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        dialog.dismiss();
+                                        Snackbar.make(findViewById(R.id.cord), e.getMessage(), Snackbar.LENGTH_LONG).show();
+                                    }
+                                });
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        dialog.dismiss();
+                        Snackbar.make(findViewById(R.id.cord), e.getMessage(), Snackbar.LENGTH_LONG).show();
+                    }
+                });
+
+    }
+
     private void loginWithEmailAndPassword(final String emailId, String password) {
         mAuth.signInWithEmailAndPassword(emailId, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -244,7 +313,11 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
 
     private void checkIfEmailVerified(FirebaseUser currentUser) {
         if (currentUser.isEmailVerified()) {
-            mrefrence.child(currentUser.getUid()).child(FirebaseConstants.EMAIL).setValue(emailBox.getText().toString())
+            HashMap<String, Object> hm = new HashMap<>();
+            hm.put(FirebaseConstants.ID, mAuth.getCurrentUser().getUid());
+            hm.put(FirebaseConstants.EMAIL, emailBox.getText().toString());
+
+            dbReference.child(currentUser.getUid()).setValue(hm)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -309,7 +382,7 @@ public class LoginAndSignUpActivity extends AppCompatActivity implements GoogleA
         dialog.setIcon(R.mipmap.icon1);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mAuth = FirebaseAuth.getInstance();
-        mrefrence = FirebaseDatabase.getInstance().getReference().child(FirebaseConstants.FIREBASE_USERS_PATH);
+        dbReference = FirebaseDatabase.getInstance().getReference().child(FirebaseConstants.FIREBASE_USERS_PATH);
     }
 
     @Override

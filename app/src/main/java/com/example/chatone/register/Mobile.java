@@ -109,7 +109,7 @@ public class Mobile extends AppCompatActivity {
                     count++;
                     send.performClick();
                 } else
-                    Snackbar.make(findViewById(R.id.cord), "Please try again later", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(findViewById(R.id.cord), "Please try again after sometime.", Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -122,40 +122,47 @@ public class Mobile extends AppCompatActivity {
                 else {
                     dialog.setMessage("otp sending");
                     dialog.show();
-                    PhoneAuthOptions options =
-                            PhoneAuthOptions.newBuilder(mAuth)
-                                    .setPhoneNumber(phoneNumber)       // Phone number to verify
-                                    .setTimeout(120L, TimeUnit.SECONDS) // Timeout and unit
-                                    .setActivity(Mobile.this)                 // Activity (for callback binding)
-                                    .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                                        @Override
-                                        public void onVerificationCompleted(PhoneAuthCredential credential) {
-                                            if(credential.getSmsCode().equals(otpText.getText().toString())){
-                                                verify(credential, credential.getSmsCode());
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onVerificationFailed(FirebaseException e) {
-                                            dialog.dismiss();
-                                            Snackbar.make(findViewById(R.id.cord), e.getMessage(), Snackbar.LENGTH_LONG).show();
-                                        }
-
-                                        @Override
-                                        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                            super.onCodeSent(s, forceResendingToken);
-                                            verificationId = s;
-                                            dialog.dismiss();
-                                            Snackbar.make(findViewById(R.id.cord), "otp send to your no." + mobile.getText().toString(), Snackbar.LENGTH_LONG).show();
-
-                                        }
-                                    })          // OnVerificationStateChangedCallbacks
-                                    .build();
-                    PhoneAuthProvider.verifyPhoneNumber(options);
+                    try {
+                        PhoneAuthOptions options =
+                                PhoneAuthOptions.newBuilder(mAuth)
+                                        .setPhoneNumber(FirebaseConstants.DEFAULT_INDIA_CODE + phoneNumber)       // Phone number to verify
+                                        .setTimeout(120L, TimeUnit.SECONDS) // Timeout and unit
+                                        .setActivity(Mobile.this)                 // Activity (for callback binding)
+                                        .setCallbacks(callbacks)          // OnVerificationStateChangedCallbacks
+                                        .build();
+                        PhoneAuthProvider.verifyPhoneNumber(options);
+                    }catch (Exception e){
+                        dialog.dismiss();
+                        Snackbar.make(findViewById(R.id.cord), "sorry we are authenticating only india users currently", Snackbar.LENGTH_LONG).show();
+                    }
                 }
             }
         });
 
+         callbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+            @Override
+            public void onVerificationCompleted(PhoneAuthCredential credential) {
+                if(credential.getSmsCode().equals(otpText.getText().toString())){
+                    verify(credential, credential.getSmsCode());
+                }
+            }
+
+            @Override
+            public void onVerificationFailed(FirebaseException e) {
+                dialog.dismiss();
+                Snackbar.make(findViewById(R.id.cord), e.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                super.onCodeSent(s, forceResendingToken);
+                verificationId = s;
+                dialog.dismiss();
+                ll1.setVisibility(View.VISIBLE);
+                ll.setVisibility(View.GONE);
+                Snackbar.make(findViewById(R.id.cord), "otp send to your no." + mobile.getText().toString(), Snackbar.LENGTH_LONG).show();
+            }
+        };
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override

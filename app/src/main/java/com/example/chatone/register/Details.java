@@ -24,6 +24,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.chatone.R;
+import com.example.chatone.constants.FirebaseConstants;
+import com.example.chatone.enums.RequestCode;
 import com.example.chatone.home.Home;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -104,7 +106,7 @@ public class Details extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "select image"), 123);
+                startActivityForResult(Intent.createChooser(intent, "select image"), RequestCode.CAMERA_ACTION.getCodeId());
             }
         });
 
@@ -114,7 +116,7 @@ public class Details extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "select image"), 123);
+                startActivityForResult(Intent.createChooser(intent, "select image"), RequestCode.CAMERA_ACTION.getCodeId());
             }
         });
 
@@ -191,20 +193,16 @@ public class Details extends AppCompatActivity {
 
                 if (name.getText().toString().length() < 3)
                     name.setError("Name fied is too short");
-
                 else if (getIntent().getStringExtra("ID").equals("1"))
                     if (gender.length() < 3)
                         Snackbar.make(findViewById(R.id.cord), "select gender", Snackbar.LENGTH_LONG).show();
 
                 if (status.length() < 3)
                     Snackbar.make(findViewById(R.id.cord), "select Status", Snackbar.LENGTH_LONG).show();
-
                 else if (dob.getText().toString().length() < 6)
                     dob.setError("Select birth date");
-
                 else if (desc.getText().toString().length() < 6)
                     desc.setError("Select birth date");
-
                 else {
                     dialog.setMessage("Details submitting");
                     dialog.show();
@@ -228,7 +226,7 @@ public class Details extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 123 && resultCode == RESULT_OK) {
+        if (requestCode == RequestCode.CAMERA_ACTION.getCodeId() && resultCode == RESULT_OK) {
 
             CropImage.activity(data.getData())
                     .setAspectRatio(1, 1)
@@ -310,7 +308,7 @@ public class Details extends AppCompatActivity {
 
     private void submitt() {
 
-        StorageReference storage = FirebaseStorage.getInstance().getReference().child("USERPIC");
+        StorageReference storage = FirebaseStorage.getInstance().getReference().child(FirebaseConstants.FIREBASE_USERS_PATH);
         if (uri != null) {
             String image = user.getUid() + "." + getExt(uri);
             UploadTask upload = storage.child(image).putBytes(bytes);
@@ -318,21 +316,21 @@ public class Details extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                     HashMap<String, Object> hm = new HashMap<>();
-                    hm.put("NAME", name.getText().toString().trim());
-                    hm.put("GENDER", gender);
-                    hm.put("STATUS", status);
-                    hm.put("ONLINE", "false");
-                    hm.put("DOB", dob.getText().toString().trim());
-                    hm.put("THUMB", image);
-                    hm.put("HOMETOWN", hometown);
-                    hm.put("HEYID", user.getUid());
-                    hm.put("DESCRIPTION", desc.getText().toString().trim());
+                    hm.put(FirebaseConstants.NAME, name.getText().toString().trim());
+                    hm.put(FirebaseConstants.GENDER, gender);
+                    hm.put(FirebaseConstants.STATUS, status);
+                    hm.put(FirebaseConstants.ONLINE, false);
+                    hm.put(FirebaseConstants.DOB, dob.getText().toString().trim());
+                    hm.put(FirebaseConstants.THUMB_IAMGE, image);
+                    hm.put(FirebaseConstants.HOMETOWN, hometown);
+                    hm.put(FirebaseConstants.ID, user.getUid());
+                    hm.put(FirebaseConstants.DESC, desc.getText().toString().trim());
 
                     ref.child(user.getUid()).updateChildren(hm)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    SharedPreferences sp = getSharedPreferences("hey", Context.MODE_PRIVATE);
+                                    SharedPreferences sp = getSharedPreferences("chatOne", Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = sp.edit();
                                     editor.putBoolean("login", true);
                                     editor.commit();

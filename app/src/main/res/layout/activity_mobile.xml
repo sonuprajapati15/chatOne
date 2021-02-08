@@ -83,6 +83,7 @@
         android:text="upload a profile pic  (optional)"
         android:textColor="#fff"
         android:textSize="12sp"
+        android:textAlignment="center"
         android:layout_marginTop="19dp"
         android:layout_below="@+id/pic"
         android:layout_alignStart="@+id/pic" />
@@ -104,7 +105,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="18dp"
             android:backgroundTint="#fff"
-            android:hint="10 digit phone no."
+            android:hint="10 digit phone no. without +91"
             android:inputType="number"
             android:maxLength="10"
             android:maxLines="1"
@@ -120,7 +121,7 @@
             android:layout_height="42dp"
             android:layout_gravity="center"
             android:layout_marginBottom="14dp"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="24dp"
             android:background="@drawable/shape"
             android:backgroundTint="#fff"
             android:elevation="100dp"
@@ -162,7 +163,7 @@
 
         <TextView
             android:id="@+id/resend"
-            android:text="resnd otp"
+            android:text="resend otp"
             android:textColor="#00d2f2"
             android:textSize="14sp"
             android:layout_marginTop="7dp"
